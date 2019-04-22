@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tomoncle</groupId>
+    <artifactId>mxnet-spring-samples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!--
+    *******************************
+    继承自spring-boot-starter-parent
+    *******************************
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.2.RELEASE</version>
+    </parent>
+
+    <!-- ************ * 开发者信息 * ************ -->
+    <developers>
+        <developer>
+            <id>tomoncle</id>
+            <name>tomoncle</name>
+            <email>tom@tomoncle.com</email>
+            <organization>tomoncle.com</organization>
+            <organizationUrl>https://www.tomoncle.com</organizationUrl>
+            <url>https://github.com/tomoncle</url>
+        </developer>
+    </developers>
+
+
+    <modules>
+        <module>mxnet-spring-samples-face-recognition</module>
+    </modules>
+
+    <!--属性版本-->
+    <properties>
+        <!-- maven compiler -->
+        <maven-compiler.version>3.2</maven-compiler.version>
+        <java.version>1.8</java.version>
+        <file_encoding>UTF-8</file_encoding>
+        <surefire.test.skip>true</surefire.test.skip>
+        <updateReleaseInfo>true</updateReleaseInfo>
+        <project.build.sourceEncoding>${file_encoding}</project.build.sourceEncoding>
+        <!--spring-cloud依赖版本-->
+        <spring-cloud.version>Dalston.SR3</spring-cloud.version>
+        <!--spring-boot版本-->
+        <spring-boot-latest.version>2.0.0.RELEASE</spring-boot-latest.version>
+        <!--spring-boot监控插件-->
+        <!--<spring-boot-admin.version>1.3.7</spring-boot-admin.version>-->
+        <spring-boot-admin.version>1.5.7</spring-boot-admin.version>
+        <!--mxnet 插件-->
+        <mxnet-cpu.version>1.4.0</mxnet-cpu.version>
+
+    </properties>
+
+
+    <!--公共依赖-->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!--Linux CPU
+        http://mxnet.incubator.apache.org/versions/master/install/java_setup.html
+        -->
+        <dependency>
+            <groupId>org.apache.mxnet</groupId>
+            <artifactId>mxnet-full_2.11-linux-x86_64-cpu</artifactId>
+            <version>${mxnet-cpu.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <!--provided表明该包只在编译和测试的时候用-->
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!-- 插件配置 -->
+    <build>
+        <plugins>
+            <!-- compiler插件, 设定JDK版本 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <!--<version>${maven-compiler.version}</version>-->
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+            <!--测试插件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${surefire.test.skip}</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
