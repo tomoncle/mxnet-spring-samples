@@ -34,7 +34,7 @@
 
 
     <modules>
-        <module>mxnet-spring-smaples-image-recognition</module>
+        <module>mxnet-spring-samples-image-recognition</module>
     </modules>
 
     <!--属性版本-->
