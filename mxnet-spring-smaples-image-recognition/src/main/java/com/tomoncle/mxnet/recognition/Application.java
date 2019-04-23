@@ -23,13 +23,13 @@ public class Application {
         String modelRootPath = getModelRootPath();
         String modelPathPrefix = String.format("%s/resnet50_ssd/resnet50_ssd_model", modelRootPath);
         String inputImagePath = String.format("%s/resnet50_ssd/images/dog.jpg", modelRootPath);
+        System.out.println(modelPathPrefix);
+        System.out.println(inputImagePath);
 
         if (isWindows()) {
             modelPathPrefix = String.format("%s\\resnet50_ssd\\resnet50_ssd_model", modelRootPath);
             inputImagePath = String.format("%s\\resnet50_ssd\\images\\dog.jpg", modelRootPath);
         }
-
-
 
         List<Context> context = getContext();
 
