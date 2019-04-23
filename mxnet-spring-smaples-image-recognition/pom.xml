@@ -8,24 +8,50 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <packaging>jar</packaging>
     <artifactId>mxnet-spring-smaples-image-recognition</artifactId>
 
     <build>
+        <finalName>app</finalName>
+        <!--jar包打包配置，引入配置文件-->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
+            <!--jar包打包配置-->
             <plugin>
-                <!-- Build an executable JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--这个要使用parent.RELEASE版本-->
+                <!--
+                因为没有继承了spring-boot-starter-parent这个parent POM（详见13.2.2. https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#using-boot-maven-without-a-parent）
+                导致spring-boot-maven-plugin的配置项丢失，
+                使得打包后的jar中的MANIFEST.MF文件缺少Main-Class。
+                所以需要额外配置以下executions标签，
+                如果继承了spring-boot-starter-parent这个parent POM，
+                则不需要配置以下executions标签，只需要配置该plugin就行
+                -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.tomoncle.mxnet.recognition.Application</mainClass>
-                        </manifest>
-                    </archive>
+                    <mainClass>com.tomoncle.mxnet.recognition.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>
