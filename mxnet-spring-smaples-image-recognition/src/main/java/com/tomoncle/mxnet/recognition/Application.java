@@ -1,100 +1,57 @@
 package com.tomoncle.mxnet.recognition;
 
-import org.apache.mxnet.infer.javaapi.ObjectDetector;
-import org.apache.mxnet.infer.javaapi.ObjectDetectorOutput;
-import org.apache.mxnet.javaapi.Context;
-import org.apache.mxnet.javaapi.DType;
-import org.apache.mxnet.javaapi.DataDesc;
-import org.apache.mxnet.javaapi.Shape;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.tomoncle.mxnet.recognition.config.SSDModelConfiguration;
+import com.tomoncle.mxnet.recognition.detect.ImageFileDetection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * app main
+ * Main class
+ *
  * Created by Administrator on 2019/4/23.
  */
-public class Application {
 
-    public static void main(String[] args) {
+@RestController
+@SpringBootApplication(scanBasePackages = {"com.tomoncle.mxnet.recognition"})
+public class Application extends SpringBootServletInitializer {
 
-        String modelRootPath = getModelRootPath();
-        String modelPathPrefix = String.format("%s/resnet50_ssd/resnet50_ssd_model", modelRootPath);
-        String inputImagePath = String.format("%s/resnet50_ssd/images/dog.jpg", modelRootPath);
-        System.out.println(modelPathPrefix);
-        System.out.println(inputImagePath);
+    private static Logger logger = LoggerFactory.getLogger(Application.class);
 
-        if (isWindows()) {
-            modelPathPrefix = String.format("%s\\resnet50_ssd\\resnet50_ssd_model", modelRootPath);
-            inputImagePath = String.format("%s\\resnet50_ssd\\images\\dog.jpg", modelRootPath);
-        }
+    @Autowired
+    SSDModelConfiguration config;
 
-        List<Context> context = getContext();
-
-        Shape inputShape = new Shape(new int[] {1, 3, 512, 512});
-
-        List<DataDesc> inputDescriptors = new ArrayList<DataDesc>();
-        inputDescriptors.add(new DataDesc("data", inputShape, DType.Float32(), "NCHW"));
-
-        BufferedImage img = ObjectDetector.loadImageFromFile(inputImagePath);
-        ObjectDetector objDet = new ObjectDetector(modelPathPrefix, inputDescriptors, context, 0);
-        List<List<ObjectDetectorOutput>> output = objDet.imageObjectDetect(img, 3);
-
-        printOutput(output, inputShape);
+    @RequestMapping("/test")
+    public String test() {
+        return new ImageFileDetection().InputImage(config.imagePath(), config.modelPrefix());
     }
 
-    /**
-     * 判断是否为windows 操作系统
-     * @return
-     */
-    private static boolean isWindows() {
-        return System.getProperty("os.name").contains("Windows");
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
     }
 
-    /**
-     * 获取模型文件夹路径
-     *
-     * @return
-     */
-    private static String getModelRootPath() {
-        if (isWindows()) {
-            return String.format("%s\\models", System.getProperty("user.dir"));
-        }
-        return String.format("%s/models", System.getProperty("user.dir"));
-    }
-
-
-    private static List<Context> getContext() {
-        List<Context> ctx = new ArrayList<>();
-        ctx.add(Context.cpu());
-
-        return ctx;
-    }
-
-    private static void printOutput(List<List<ObjectDetectorOutput>> output, Shape inputShape) {
-
-        StringBuilder outputStr = new StringBuilder();
-
-        int width = inputShape.get(3);
-        int height = inputShape.get(2);
-
-        for (List<ObjectDetectorOutput> ele : output) {
-            for (ObjectDetectorOutput i : ele) {
-                outputStr.append("Class: " + i.getClassName() + "\n");
-                outputStr.append("Probabilties: " + i.getProbability() + "\n");
-
-                List<Float> coord = Arrays.asList(i.getXMin() * width,
-                        i.getXMax() * height, i.getYMin() * width, i.getYMax() * height);
-                StringBuilder sb = new StringBuilder();
-                for (float c : coord) {
-                    sb.append(", ").append(c);
-                }
-                outputStr.append("Coord:" + sb.substring(2) + "\n");
+    public static void main(String[] args) throws Exception {
+        ApplicationContext application = SpringApplication.run(Application.class, args);
+        if (logger.isDebugEnabled()) {
+            String[] beanDefinitionNames = application.getBeanDefinitionNames();
+            for (String beanName : beanDefinitionNames) {
+                logger.debug(beanName);
             }
         }
-        System.out.println(outputStr);
-
+//        logger.info("Started HTTP server on [::]:" + System.getProperty("server.port"));
     }
+
+
 }

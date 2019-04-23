@@ -11,6 +11,22 @@
     <packaging>jar</packaging>
     <artifactId>mxnet-spring-smaples-image-recognition</artifactId>
 
+    <dependencies>
+        <!--spring-boot-starter-web jar提供启动嵌入式Tomcat容器的自动化配置,
+ 并且提供对微服务应用有价值的端点信息，如服务器信息、应用指标（metrics）以及环境详情
+ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--servlet支持，main方法启动时，需要注释provided作用域-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <!--<scope>provided</scope>-->
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>app</finalName>
         <!--jar包打包配置，引入配置文件-->
