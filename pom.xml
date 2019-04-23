@@ -34,7 +34,7 @@
 
 
     <modules>
-        <module>mxnet-spring-samples-face-recognition</module>
+        <module>mxnet-spring-smaples-image-recognition</module>
     </modules>
 
     <!--属性版本-->
