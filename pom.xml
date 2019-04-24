@@ -46,15 +46,10 @@
         <surefire.test.skip>true</surefire.test.skip>
         <updateReleaseInfo>true</updateReleaseInfo>
         <project.build.sourceEncoding>${file_encoding}</project.build.sourceEncoding>
-        <!--spring-cloud依赖版本-->
-        <spring-cloud.version>Dalston.SR3</spring-cloud.version>
-        <!--spring-boot版本-->
-        <spring-boot-latest.version>2.0.0.RELEASE</spring-boot-latest.version>
-        <!--spring-boot监控插件-->
-        <!--<spring-boot-admin.version>1.3.7</spring-boot-admin.version>-->
-        <spring-boot-admin.version>1.5.7</spring-boot-admin.version>
         <!--mxnet 插件-->
         <mxnet-cpu.version>1.4.0</mxnet-cpu.version>
+        <!-- spring-boot-config -->
+        <spring.boot.config.version>2.1.2</spring.boot.config.version>
 
     </properties>
 

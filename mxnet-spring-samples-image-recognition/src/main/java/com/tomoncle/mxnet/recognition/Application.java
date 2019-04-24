@@ -1,6 +1,7 @@
 package com.tomoncle.mxnet.recognition;
 
 
+import com.tomoncle.config.springboot.constant.Constants;
 import com.tomoncle.mxnet.recognition.config.SSDModelConfiguration;
 import com.tomoncle.mxnet.recognition.detect.ImageFileDetection;
 import org.slf4j.Logger;
@@ -12,19 +13,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Main class
- *
+ * <p/>
  * Created by Administrator on 2019/4/23.
  */
 
 @RestController
-@SpringBootApplication(scanBasePackages = {"com.tomoncle.mxnet.recognition"})
+@EnableAutoConfiguration
+@SpringBootApplication(scanBasePackages = {
+        "com.tomoncle.mxnet.recognition",
+        Constants.SCAN_BASE_PACKAGE
+})
 public class Application extends SpringBootServletInitializer {
 
     private static Logger logger = LoggerFactory.getLogger(Application.class);
