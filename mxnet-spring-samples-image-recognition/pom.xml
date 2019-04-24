@@ -30,22 +30,18 @@
         <dependency>
             <groupId>com.tomoncle</groupId>
             <artifactId>spring-boot-config-monitor-server</artifactId>
-            <version>${spring.boot.config.version}</version>
         </dependency>
         <dependency>
             <groupId>com.tomoncle</groupId>
             <artifactId>spring-boot-config-monitor-client</artifactId>
-            <version>${spring.boot.config.version}</version>
         </dependency>
         <dependency>
             <groupId>com.tomoncle</groupId>
             <artifactId>spring-boot-config-constants</artifactId>
-            <version>${spring.boot.config.version}</version>
         </dependency>
         <dependency>
             <groupId>com.tomoncle</groupId>
             <artifactId>spring-boot-config-errors</artifactId>
-            <version>${spring.boot.config.version}</version>
         </dependency>
 
     </dependencies>
