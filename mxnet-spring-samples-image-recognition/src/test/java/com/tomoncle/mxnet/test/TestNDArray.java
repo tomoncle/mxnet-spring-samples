@@ -1,16 +1,17 @@
 package com.tomoncle.mxnet.test;
 
 
-import org.apache.mxnet.Image;
 import org.apache.mxnet.Layout;
 import org.apache.mxnet.infer.javaapi.ObjectDetector;
 import org.apache.mxnet.infer.javaapi.ObjectDetectorOutput;
 import org.apache.mxnet.infer.javaapi.Predictor;
-import org.apache.mxnet.javaapi.*;
+import org.apache.mxnet.javaapi.Context;
+import org.apache.mxnet.javaapi.DType;
+import org.apache.mxnet.javaapi.DataDesc;
+import org.apache.mxnet.javaapi.Shape;
 import org.junit.Test;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,7 +65,7 @@ public class TestNDArray {
 
 
     @Test
-    public void testPredictor(){
+    public void testPredictor() {
         List<Context> context = new ArrayList<>();
         if (System.getenv().containsKey("SCALA_TEST_ON_GPU") &&
                 Integer.valueOf(System.getenv("SCALA_TEST_ON_GPU")) == 1) {
@@ -75,7 +76,7 @@ public class TestNDArray {
         List<DataDesc> inputDesc = new ArrayList<>();
         Shape inputShape = new Shape(new int[]{1, 3, 224, 224});
         inputDesc.add(new DataDesc("data", inputShape, DType.Float32(), Layout.NCHW()));
-        Predictor predictor = new Predictor(modelPathPrefix, inputDesc, context,0);
+        Predictor predictor = new Predictor(modelPathPrefix, inputDesc, context, 0);
         // Prepare data
         System.out.println(predictor.predictor());
 

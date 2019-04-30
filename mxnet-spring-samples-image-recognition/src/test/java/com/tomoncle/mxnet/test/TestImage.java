@@ -5,10 +5,13 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import org.apache.mxnet.javaapi.*;
+import org.junit.Test;
 
 public class TestImage {
 
-    public static void main(String[] args) throws Exception{
+    @Test
+    public void t1() throws Exception{
 
             String inputImagePath = "/home/tomoncle/workspace/java/github.com/tomoncle/mxnet-spring-samples/models/" +
                     "resnet50_ssd/images/dog.jpg";
