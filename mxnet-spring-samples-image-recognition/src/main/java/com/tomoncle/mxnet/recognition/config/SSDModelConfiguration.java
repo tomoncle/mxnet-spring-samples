@@ -33,8 +33,17 @@ public class SSDModelConfiguration {
      *
      * @return
      */
-    public String imagePath() {
+    public String dogImagePath() {
         return String.format("%s/resnet50_ssd/images/dog.jpg", this.root);
+    }
+
+    /**
+     * 获取图片路径
+     *
+     * @return
+     */
+    public String personImagePath(){
+        return String.format("%s/resnet50_ssd/images/person.jpg", this.root);
     }
 
 }

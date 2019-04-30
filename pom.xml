@@ -31,6 +31,20 @@
             <url>https://github.com/tomoncle</url>
         </developer>
     </developers>
+    <!--  tomoncle's private maven repository.  -->
+    <repositories>
+        <repository>
+            <id>tomoncle</id>
+            <name>tomoncle Repositories</name>
+            <url>https://github.com/tomoncle/m2/raw/master/repository/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 
     <modules>
@@ -59,14 +73,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <!--Linux CPU
-        http://mxnet.incubator.apache.org/versions/master/install/java_setup.html
-        -->
-        <dependency>
-            <groupId>org.apache.mxnet</groupId>
-            <artifactId>mxnet-full_2.11-linux-x86_64-cpu</artifactId>
-            <version>${mxnet-cpu.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>

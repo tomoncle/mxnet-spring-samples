@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>mxnet-spring-smaples-image-recognition</artifactId>
+    <artifactId>mxnet-spring-samples-image-recognition</artifactId>
+    <!--docs: https://github.com/apache/incubator-mxnet/tree/master/scala-package/mxnet-demo/java-demo -->
 
     <dependencies>
         <!--spring-boot-starter-web jar提供启动嵌入式Tomcat容器的自动化配置,
@@ -24,6 +25,30 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <!--<scope>provided</scope>-->
+        </dependency>
+        <!--导入配置文件处理器，配置文件进行绑定就会有提示-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--第三方插件-->
+        <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
+<!--        <dependency>-->
+<!--            <groupId>org.openpnp</groupId>-->
+<!--            <artifactId>opencv</artifactId>-->
+<!--            <version>3.4.2-1</version>-->
+<!--        </dependency>-->
+
+        <!--Linux CPU
+        http://mxnet.incubator.apache.org/versions/master/install/java_setup.html
+        https://mvnrepository.com/artifact/org.apache.mxnet/mxnet-full_2.11-linux-x86_64-cpu
+        -->
+        <dependency>
+            <groupId>org.apache.mxnet</groupId>
+            <artifactId>mxnet-full_2.11-linux-x86_64-cpu</artifactId>
+            <version>${mxnet-cpu.version}</version>
         </dependency>
 
         <!--spring-boot-config-->
@@ -42,6 +67,24 @@
         <dependency>
             <groupId>com.tomoncle</groupId>
             <artifactId>spring-boot-config-errors</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tomoncle</groupId>
+            <artifactId>spring-boot-config-utils</artifactId>
+        </dependency>
+
+        <!--Test-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
