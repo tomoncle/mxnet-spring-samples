@@ -31,10 +31,11 @@
             <url>https://github.com/tomoncle</url>
         </developer>
     </developers>
-    <!--  tomoncle's private maven repository.  -->
+
     <repositories>
         <repository>
-            <id>tomoncle</id>
+            <!--  tomoncle's private maven repository.  -->
+            <id>tomoncle repository</id>
             <name>tomoncle Repositories</name>
             <url>https://github.com/tomoncle/m2/raw/master/repository/</url>
             <releases>
@@ -43,6 +44,23 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <!--  snapshots repository.  -->
+            <id>tomoncle snapshots</id>
+            <name>tomoncle snapshots Repositories</name>
+            <url>https://github.com/tomoncle/m2/raw/master/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <!--Apache Snapshot-->
+            <id>Apache Snapshot</id>
+            <url>https://repository.apache.org/content/groups/snapshots</url>
         </repository>
     </repositories>
 
@@ -61,7 +79,7 @@
         <updateReleaseInfo>true</updateReleaseInfo>
         <project.build.sourceEncoding>${file_encoding}</project.build.sourceEncoding>
         <!--mxnet 插件-->
-        <mxnet-cpu.version>1.4.0</mxnet-cpu.version>
+        <mxnet-cpu.version>[1.5.0-SNAPSHOT, )</mxnet-cpu.version>
         <!-- spring-boot-config -->
         <spring.boot.config.version>2.1.2</spring.boot.config.version>
 

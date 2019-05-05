@@ -82,4 +82,12 @@ public class TestNDArray {
 
     }
 
+
+    @Test
+    public  void  testArray(){
+        Object[] locations = {"312.1234","45.12345"};
+        Integer a =Float.valueOf(locations[0].toString()).intValue();
+        System.out.println(a);
+    }
+
 }

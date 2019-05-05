@@ -2,9 +2,7 @@ package com.tomoncle.mxnet.recognition.detect;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.mxnet.Image;
 import org.apache.mxnet.Layout;
-import org.apache.mxnet.NDArray;
 import org.apache.mxnet.infer.javaapi.ObjectDetector;
 import org.apache.mxnet.infer.javaapi.ObjectDetectorOutput;
 import org.apache.mxnet.javaapi.Context;
@@ -48,10 +46,12 @@ public class ImageFileDetection {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("class", i.getClassName());
                 jsonObject.put("probability", i.getProbability());
+                // 这里是按512*512 像素返回的位置值,如果要画图的图片不是512*512像素,
+                // 那需要 xmin(xmax) * image.width/512,  ymin(ymax) * image.height/512,
                 List<Float> locations = Arrays.asList(
                         i.getXMin() * width,
-                        i.getXMax() * height,
-                        i.getYMin() * width,
+                        i.getXMax() * width,
+                        i.getYMin() * height,
                         i.getYMax() * height);
                 jsonObject.put("location", locations);
                 jsonArray.add(jsonObject);
