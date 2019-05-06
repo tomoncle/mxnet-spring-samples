@@ -19,9 +19,16 @@ import java.util.List;
  * @Time : 2019/4/23 21:07
  * @Author : TOM.LEE
  * @File : ImageFile.java
- * @Docs : https://medium.com/apache-mxnet/introducing-java-apis-for-deep-learning-inference-with-apache-mxnet-8406a698fa5a
+ * <p>
+ * Reference Of :
+ * https://medium.com/apache-mxnet/introducing-java-apis-for-deep-learning-inference-with-apache-mxnet-8406a698fa5a
+ * https://github.com/apache/incubator-mxnet/blob/master/scala-package/examples/src/main/java/org/apache/mxnetexamples/javaapi/infer/objectdetector/SSDClassifierExample.java
  */
 public class ImageFileDetection {
+
+
+    // 如果识别准确率小于0.5则忽略
+    private static final float IGNORE_PROBABILITY = 0.5f;
 
     /**
      * 通过在上下文对象中指定inference，可以很容易地指定是要在CPU上还是GPU（如果您有支持GPU的计算机）上运行inference。
@@ -43,6 +50,10 @@ public class ImageFileDetection {
         for (List<ObjectDetectorOutput> ele : output) {
             JSONArray jsonArray = new JSONArray();
             for (ObjectDetectorOutput i : ele) {
+                if (i.getProbability() < IGNORE_PROBABILITY) {
+                    // 如果识别准确率小于0.5则跳过
+                    continue;
+                }
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("class", i.getClassName());
                 jsonObject.put("probability", i.getProbability());
@@ -64,7 +75,7 @@ public class ImageFileDetection {
     }
 
 
-    public String InputImage(String inputImagePath, String modelPathPrefix) {
+    public static String inputImage(String inputImagePath, String modelPathPrefix) {
         List<Context> context = getContext();
         // 1表示批量大小，在我们的例子中是单个图像。
         // 3用于图像中的通道，对于RGB图像为3
@@ -76,8 +87,9 @@ public class ImageFileDetection {
         inputDescriptors.add(new DataDesc("data", inputShape, DType.Float32(), Layout.NCHW()));
         BufferedImage img = ObjectDetector.loadImageFromFile(inputImagePath);
         ObjectDetector objDet = new ObjectDetector(modelPathPrefix, inputDescriptors, context, 0);
-        // 3表示获取识别率最高的三个对象
-        List<List<ObjectDetectorOutput>> output = objDet.imageObjectDetect(img, 3);
+        // topK=5表示获取识别率最高的5个对象
+        final int topK = 5;
+        List<List<ObjectDetectorOutput>> output = objDet.imageObjectDetect(img, topK);
         return output(output, inputShape);
     }
 

@@ -42,7 +42,7 @@ public class SSDModelConfiguration {
      *
      * @return
      */
-    public String personImagePath(){
+    public String personImagePath() {
         return String.format("%s/resnet50_ssd/images/person.jpg", this.root);
     }
 

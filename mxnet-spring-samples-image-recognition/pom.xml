@@ -32,14 +32,19 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <!--第三方插件-->
         <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
-<!--        <dependency>-->
-<!--            <groupId>org.openpnp</groupId>-->
-<!--            <artifactId>opencv</artifactId>-->
-<!--            <version>3.4.2-1</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.openpnp</groupId>-->
+        <!--            <artifactId>opencv</artifactId>-->
+        <!--            <version>3.4.2-1</version>-->
+        <!--        </dependency>-->
 
         <!--Linux CPU
         http://mxnet.incubator.apache.org/versions/master/install/java_setup.html

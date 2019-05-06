@@ -7,6 +7,9 @@ import org.junit.Test;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,16 +31,25 @@ public class TestImage {
         int height = buf.getHeight();
         // Covert to image
         Map<String, Integer> map = new HashMap<>();
-        map.put("xmin", 312*width/512);
-        map.put("xmax", 456*width/512);
-        map.put("ymin", 72*height/512);
-        map.put("ymax", 150*height/512);
+        map.put("xmin", 312 * width / 512);
+        map.put("xmax", 456 * width / 512);
+        map.put("ymin", 72 * height / 512);
+        map.put("ymax", 150 * height / 512);
         boxes.add(map);
 
         Image.drawBoundingBox(buf, boxes, names);
         File outputFile = new File("boundingImage.png");
         ImageIO.write(buf, "png", outputFile);
         System.exit(0);
+    }
+
+    @Test
+    public void t2() {
+        try {
+            Files.createDirectories(Paths.get("/tmp/123/456/789"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
