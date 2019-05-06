@@ -1,4 +1,6 @@
-# mxnet-spring-samples [![Build Status](https://travis-ci.org/tomoncle/mxnet-spring-samples.svg?branch=master)][travis] ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/tomoncle/mxnet-spring-samples.svg) ![GitHub repo size](https://img.shields.io/github/repo-size/tomoncle/mxnet-spring-samples.svg?color=green&logoColor=green) ![GitHub top language](https://img.shields.io/github/languages/top/tomoncle/mxnet-spring-samples.svg?color=yes) ![GitHub issues](https://img.shields.io/github/issues/tomoncle/mxnet-spring-samples.svg) ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)
+# mxnet-spring-samples 
+[![Build Status](https://travis-ci.org/tomoncle/mxnet-spring-samples.svg?branch=master)][travis] ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/tomoncle/mxnet-spring-samples.svg) ![GitHub repo size](https://img.shields.io/github/repo-size/tomoncle/mxnet-spring-samples.svg?color=green&logoColor=green) ![GitHub top language](https://img.shields.io/github/languages/top/tomoncle/mxnet-spring-samples.svg?color=yes) ![GitHub issues](https://img.shields.io/github/issues/tomoncle/mxnet-spring-samples.svg) ![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)
+
 Apache MXNet (Incubating) A flexible and efficient library for deep learning for Java samples.
 
 ## mxnet-spring-samples-image-recognition
