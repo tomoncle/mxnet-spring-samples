@@ -1,0 +1,30 @@
+sudo: false
+language: java
+
+dist:
+  - trusty
+  
+script:
+  - export JDK8_HOME=$(jdk_switcher home oraclejdk8)
+  - export JDK9_HOME=/usr/lib/jvm/java-9-oracle
+  - test -d "${JDK8_HOME}" || export JDK8_HOME=$(jdk_switcher home oraclejdk8)
+
+before_cache:
+  # No sense in caching current build artifacts
+  - rm -rf $HOME/.m2/repository/com/tomoncle
+
+cache:
+  directories:
+    - $HOME/.m2/repository
+
+matrix:
+  fast_finish: true
+  include:
+    - jdk: oraclejdk8
+    - jdk: oraclejdk9
+      env:
+        - JDK=8
+
+install: /bin/true
+script:
+  - mvn package -Dmaven.javadoc.skip=true -V -B
