@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 /**
@@ -38,9 +39,11 @@ public class FileUploadTools implements FileExecService {
             if (file.isEmpty()) {
                 throw new FileExecException("Failed to store empty file " + file.getOriginalFilename());
             }
-            Files.copy(file.getInputStream(), this.uploadDir.resolve(file.getOriginalFilename()));
+            Files.copy(file.getInputStream(),
+                    this.uploadDir.resolve(file.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            throw new FileExecException("Failed to system file " + file.getOriginalFilename(), e);
+            throw new FileExecException("Failed to save file " + file.getOriginalFilename(), e);
         }
     }
 
