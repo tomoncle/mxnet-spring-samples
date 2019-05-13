@@ -1,6 +1,8 @@
 package com.tomoncle.mxnet.recognition.api;
 
-import com.tomoncle.mxnet.recognition.common.file.FileUploadTools;
+import com.tomoncle.config.springboot.utils.file.LocalFileService;
+import com.tomoncle.config.springboot.utils.file.LocalFileServiceImpl;
+import com.tomoncle.mxnet.recognition.config.FileExecConfiguration;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -20,10 +22,10 @@ import java.nio.file.Path;
 @RequestMapping("/files")
 public class FileUploadController {
 
-    private final FileUploadTools fileUpload;
+    private final LocalFileService fileUpload;
 
-    public FileUploadController(FileUploadTools fileUpload) {
-        this.fileUpload = fileUpload;
+    public FileUploadController(FileExecConfiguration f) {
+        fileUpload = new LocalFileServiceImpl(f.getUpload());
     }
 
     /**
@@ -69,7 +71,7 @@ public class FileUploadController {
      * @return
      */
     @GetMapping
-    public String listUploadedFiles(@ModelAttribute("message") String message) {
+    public String uploadedFiles(@ModelAttribute("message") String message) {
         return " <!doctype html>\n" +
                 "    <title>Upload new File</title>\n" +
                 message + "\n" +
@@ -90,7 +92,7 @@ public class FileUploadController {
     @PostMapping
     public ModelAndView handleFileUpload(@RequestParam("file") MultipartFile file,
                                          RedirectAttributes redirectAttributes) {
-        fileUpload.save(file);
+        fileUpload.saveOrReplace(file);
         redirectAttributes.addFlashAttribute(
                 "message", "You successfully uploaded " + file.getOriginalFilename() + "!");
 

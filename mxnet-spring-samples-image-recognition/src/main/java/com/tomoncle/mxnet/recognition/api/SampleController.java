@@ -1,7 +1,7 @@
 package com.tomoncle.mxnet.recognition.api;
 
 import com.alibaba.fastjson.JSONArray;
-import com.tomoncle.mxnet.recognition.common.file.FileMXNetImageTools;
+import com.tomoncle.mxnet.recognition.detect.FileMXNetImageTools;
 import com.tomoncle.mxnet.recognition.config.SSDModelConfiguration;
 import com.tomoncle.mxnet.recognition.detect.ImageFileDetection;
 import org.springframework.core.io.InputStreamResource;

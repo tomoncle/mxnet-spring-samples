@@ -1,4 +1,4 @@
-package com.tomoncle.mxnet.recognition.common.file;
+package com.tomoncle.mxnet.recognition.detect;
 
 import com.alibaba.fastjson.JSONArray;
 import org.apache.mxnet.javaapi.Image;

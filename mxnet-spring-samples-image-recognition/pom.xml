@@ -43,11 +43,11 @@
              https://mvnrepository.com/artifact/org.bytedeco/javacv-platform
              https://github.com/bytedeco/javacv
          -->
-        <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacv-platform</artifactId>
-            <version>1.5</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.bytedeco</groupId>-->
+        <!--            <artifactId>javacv-platform</artifactId>-->
+        <!--            <version>1.5</version>-->
+        <!--        </dependency>-->
 
         <!--Linux CPU
         http://mxnet.incubator.apache.org/versions/master/install/java_setup.html
@@ -70,15 +70,15 @@
         </dependency>
         <dependency>
             <groupId>com.tomoncle</groupId>
-            <artifactId>spring-boot-config-constants</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.tomoncle</groupId>
             <artifactId>spring-boot-config-errors</artifactId>
         </dependency>
         <dependency>
             <groupId>com.tomoncle</groupId>
             <artifactId>spring-boot-config-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.tomoncle</groupId>
+            <artifactId>spring-boot-config-autoscan</artifactId>
         </dependency>
 
         <!--Test-->

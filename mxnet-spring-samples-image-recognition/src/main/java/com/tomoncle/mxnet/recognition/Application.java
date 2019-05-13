@@ -1,7 +1,8 @@
 package com.tomoncle.mxnet.recognition;
 
 
-import com.tomoncle.config.springboot.constant.Constants;
+import com.tomoncle.config.springboot.EnableSpringBootConfig;
+import com.tomoncle.config.springboot.constant.SpringBootConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -17,9 +18,10 @@ import org.springframework.context.ApplicationContext;
  */
 
 
-@SpringBootApplication(scanBasePackages = {
-        Application.SCAN_PROJECT_PACKAGE,
-        Constants.SCAN_BASE_PACKAGE})
+@SpringBootApplication(
+        scanBasePackages = {Application.SCAN_PROJECT_PACKAGE},
+        scanBasePackageClasses = {EnableSpringBootConfig.class}
+)
 public class Application extends SpringBootServletInitializer {
 
     static final String SCAN_PROJECT_PACKAGE = "com.tomoncle.mxnet.recognition";
