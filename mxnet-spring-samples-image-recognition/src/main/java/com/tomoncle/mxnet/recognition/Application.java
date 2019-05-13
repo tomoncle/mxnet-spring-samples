@@ -2,7 +2,6 @@ package com.tomoncle.mxnet.recognition;
 
 
 import com.tomoncle.config.springboot.EnableSpringBootConfig;
-import com.tomoncle.config.springboot.constant.SpringBootConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
