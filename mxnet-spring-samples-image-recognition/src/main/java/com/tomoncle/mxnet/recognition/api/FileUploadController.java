@@ -1,8 +1,12 @@
 package com.tomoncle.mxnet.recognition.api;
 
+import com.alibaba.fastjson.JSONArray;
 import com.tomoncle.config.springboot.utils.file.LocalFileService;
 import com.tomoncle.config.springboot.utils.file.LocalFileServiceImpl;
 import com.tomoncle.mxnet.recognition.config.FileExecConfiguration;
+import com.tomoncle.mxnet.recognition.config.SSDModelConfiguration;
+import com.tomoncle.mxnet.recognition.detect.FileMXNetImageTools;
+import com.tomoncle.mxnet.recognition.detect.ImageFileDetection;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
@@ -24,8 +29,14 @@ public class FileUploadController {
 
     private final LocalFileService fileUpload;
 
-    public FileUploadController(FileExecConfiguration f) {
+    private final SSDModelConfiguration ssdModelConfiguration;
+
+    private final String UPLOAD_ROOT_PATH;
+
+    public FileUploadController(FileExecConfiguration f, SSDModelConfiguration s) {
         fileUpload = new LocalFileServiceImpl(f.getUpload());
+        UPLOAD_ROOT_PATH = f.getUpload();
+        ssdModelConfiguration = s;
     }
 
     /**
@@ -98,4 +109,43 @@ public class FileUploadController {
 
         return new ModelAndView("redirect:/files");
     }
+
+    /**
+     * 上传图片并预览识别后的图片
+     *
+     * @param file 上传的文件
+     * @return url for "/files/{filename:.+}/view"
+     */
+    @PostMapping("/detectImage")
+    public ModelAndView detectImage(@RequestParam("file") MultipartFile file) throws IOException {
+        // save file
+        fileUpload.saveOrReplace(file);
+        // upload file path
+        String filePath = String.format("%s/%s", UPLOAD_ROOT_PATH, file.getOriginalFilename());
+        // detect json data
+        String json = ImageFileDetection.inputImage(filePath, ssdModelConfiguration.modelPrefix());
+        JSONArray jsonArray = JSONArray.parseArray(json);
+        // detected save path
+        filePath = FileMXNetImageTools.loadImage(filePath, jsonArray.getJSONArray(0));
+        final String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+        return new ModelAndView(String.format("redirect:/files/%s/view", fileName));
+    }
+
+    /**
+     * 上传要识别的文件
+     *
+     * @return
+     */
+    @GetMapping("/detectImage")
+    public String detectImage() {
+        return " <!doctype html>\n" +
+                "    <title>Upload new File</title>\n" +
+                "    <h1>Upload Have Face Image File</h1>\n" +
+                "    <form method=post enctype=multipart/form-data>\n" +
+                "      <input type=file name=file>\n" +
+                "      <input type=submit value=Upload>\n" +
+                "    </form>";
+    }
+
+
 }
