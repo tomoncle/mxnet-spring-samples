@@ -5,13 +5,26 @@ Apache MXNet (Incubating) A flexible and efficient library for deep learning for
 
 ## mxnet-spring-samples-image-recognition
 springboot and Apache MXNet Image recognition and DrawBoxes.
-
-* RUN
+* Run
   * download model: [dl_ssd_model.sh](models/dl_ssd_model.sh)
   * update config : [application.properties](mxnet-spring-samples-image-recognition/src/main/resources/application.properties)
   * boot MainClass:`com.tomoncle.mxnet.recognition.Application.java`
 
+## Demonstration
+ > Identify uploaded objects, label types, and locate their exact coordinates.
+##### 1.select the image to upload
+![...](https://raw.githubusercontent.com/tomoncle/img/master/face-detection-induction-course/person.jpg)
 
+##### 2.upload your image
+![...](https://raw.githubusercontent.com/tomoncle/img/master/face-detection-induction-course/1.png)
 
+##### 3.waiting to upload and return the processed image
+![...](https://raw.githubusercontent.com/tomoncle/img/master/face-detection-induction-course/view.png)
 
+## For docker run: 
+```bash
+$ docker run -d -p 9080:9080 tomoncleshare/face-detection-induction-course:20190512
+```
+
+##### Find code : [mxnet-spring-samples-image-recognition](mxnet-spring-samples-image-recognition) .
 [travis]: https://travis-ci.org/tomoncle/mxnet-spring-samples
