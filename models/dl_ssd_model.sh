@@ -22,11 +22,11 @@ set -e
 
 MXNET_ROOT=$(cd "$(dirname $0)"; pwd)
 
-data_path=$MXNET_ROOT/resnet50_ssd
+data_path=${MXNET_ROOT}/resnet50_ssd
 
-image_path=$MXNET_ROOT/resnet50_ssd/images
+image_path=${MXNET_ROOT}/resnet50_ssd/images
 
-if [ ! -d "$data_path" ]; then
+if [[ ! -d "$data_path" ]]; then
     mkdir -p "$data_path"
 fi
 
@@ -34,13 +34,13 @@ wget https://s3.amazonaws.com/model-server/models/resnet50_ssd/resnet50_ssd_mode
 wget https://s3.amazonaws.com/model-server/models/resnet50_ssd/resnet50_ssd_model-0000.params -P $data_path
 wget https://s3.amazonaws.com/model-server/models/resnet50_ssd/synset.txt -P $data_path
 
-if [ ! -d "$image_path" ]; then
+if [[ ! -d "$image_path" ]]; then
    mkdir -p "$image_path"
 fi
 
-cd $image_path
+cd ${image_path}
 wget https://cloud.githubusercontent.com/assets/3307514/20012567/cbb60336-a27d-11e6-93ff-cbc3f09f5c9e.jpg -O dog.jpg
 wget https://cloud.githubusercontent.com/assets/3307514/20012563/cbb41382-a27d-11e6-92a9-18dab4fd1ad3.jpg -O person.jpg
 
-cd $MXNET_ROOT
+cd ${MXNET_ROOT}
 
