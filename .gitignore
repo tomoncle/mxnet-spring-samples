@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 .idea/
+*.iml
 
 # Model file
 models/resnet50_ssd/

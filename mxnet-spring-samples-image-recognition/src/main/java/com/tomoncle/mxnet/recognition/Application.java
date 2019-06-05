@@ -1,7 +1,6 @@
 package com.tomoncle.mxnet.recognition;
 
 
-import com.tomoncle.config.springboot.EnableSpringBootConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -17,16 +16,10 @@ import org.springframework.context.ApplicationContext;
  */
 
 
-@SpringBootApplication(
-        scanBasePackages = {Application.SCAN_PROJECT_PACKAGE},
-        scanBasePackageClasses = {EnableSpringBootConfig.class}
-)
+@SpringBootApplication(scanBasePackages = {"com.tomoncle.mxnet.recognition"})
 public class Application extends SpringBootServletInitializer {
 
-    static final String SCAN_PROJECT_PACKAGE = "com.tomoncle.mxnet.recognition";
-
     private static Logger logger = LoggerFactory.getLogger(Application.class);
-
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
