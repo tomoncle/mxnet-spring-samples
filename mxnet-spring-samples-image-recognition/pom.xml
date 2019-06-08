@@ -9,8 +9,41 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <mxnet.version>[1.5.0-SNAPSHOT, )</mxnet.version>
+        <mxnet.scalaprofile>2.11</mxnet.scalaprofile>
+        <mxnet.hw_type>cpu</mxnet.hw_type>
+    </properties>
     <artifactId>mxnet-spring-samples-image-recognition</artifactId>
     <!--docs: https://github.com/apache/incubator-mxnet/tree/master/scala-package/mxnet-demo/java-demo -->
+
+    <profiles>
+        <profile>
+            <id>osx-x86_64</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <mxnet.profile>osx-x86_64-cpu</mxnet.profile>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux-x86_64</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <name>Linux</name>
+                </os>
+            </activation>
+            <properties>
+                <mxnet.profile>linux-x86_64-${mxnet.hw_type}</mxnet.profile>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <!--spring-boot-starter-web jar提供启动嵌入式Tomcat容器的自动化配置,
@@ -37,6 +70,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.apache.mxnet</groupId>
+            <artifactId>mxnet-full_${mxnet.scalaprofile}-${mxnet.profile}</artifactId>
+            <version>${mxnet.version}</version>
+        </dependency>
 
         <!--第三方插件-->
         <!-- https://search.maven.org/artifact/org.bytedeco/javacv-platform/1.5/jar
@@ -53,11 +91,6 @@
         http://mxnet.incubator.apache.org/versions/master/install/java_setup.html
         https://mvnrepository.com/artifact/org.apache.mxnet/mxnet-full_2.11-linux-x86_64-cpu
         -->
-        <dependency>
-            <groupId>org.apache.mxnet</groupId>
-            <artifactId>mxnet-full_2.11-linux-x86_64-cpu</artifactId>
-            <version>${mxnet-cpu.version}</version>
-        </dependency>
 
         <!--spring-boot-config-->
         <dependency>
@@ -96,6 +129,20 @@
         </dependency>
 
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>apache.snapshots</id>
+            <name>Apache Development Snapshot Repository</name>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <build>
         <finalName>app</finalName>
