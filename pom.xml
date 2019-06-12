@@ -85,7 +85,9 @@
         <updateReleaseInfo>true</updateReleaseInfo>
         <project.build.sourceEncoding>${file_encoding}</project.build.sourceEncoding>
         <!--mxnet 插件-->
-        <mxnet-cpu.version>[1.5.0-SNAPSHOT, )</mxnet-cpu.version>
+        <mxnet.version>[1.5.0-SNAPSHOT, )</mxnet.version>
+        <mxnet.hw_type>cpu</mxnet.hw_type>
+        <mxnet.scalaprofile>2.11</mxnet.scalaprofile>
         <!-- spring-boot-config -->
         <spring.boot.config.version>2.1.2</spring.boot.config.version>
 

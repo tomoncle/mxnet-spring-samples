@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -16,26 +16,37 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-
-
 set -e
 
-MXNET_ROOT=$(cd "$(dirname $0)"; pwd)
+if [[ "$(uname)" == "Darwin" ]]; then # Mac OS X
+    echo "Max OS"
+elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then # GNU/Linux
+    echo "Linux"
+elif [[ "$(expr substr $(uname -s) 1 5)" == "MINGW" ]]; then # Windows
+    echo "Windows"
+fi
+
+USER_HOME=$HOME
+MXNET_ROOT=${USER_HOME}/mxnet-models
+
+if [[ ! -d ${MXNET_ROOT} ]]; then
+    mkdir ${MXNET_ROOT}
+fi
 
 data_path=${MXNET_ROOT}/resnet50_ssd
 
 image_path=${MXNET_ROOT}/resnet50_ssd/images
 
-if [[ ! -d "$data_path" ]]; then
-    mkdir -p "$data_path"
+if [[ ! -d ${data_path} ]]; then
+    mkdir -p ${data_path}
 fi
 
 wget https://s3.amazonaws.com/model-server/models/resnet50_ssd/resnet50_ssd_model-symbol.json -P $data_path
 wget https://s3.amazonaws.com/model-server/models/resnet50_ssd/resnet50_ssd_model-0000.params -P $data_path
 wget https://s3.amazonaws.com/model-server/models/resnet50_ssd/synset.txt -P $data_path
 
-if [[ ! -d "$image_path" ]]; then
-   mkdir -p "$image_path"
+if [[ ! -d ${image_path} ]]; then
+   mkdir -p ${image_path}
 fi
 
 cd ${image_path}
