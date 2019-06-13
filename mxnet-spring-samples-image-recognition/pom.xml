@@ -75,28 +75,16 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--  mxnet -->
+
+        <!-- mxnet Linux CPU
+        http://mxnet.incubator.apache.org/versions/master/install/java_setup.html
+        https://mvnrepository.com/artifact/org.apache.mxnet/mxnet-full_2.11-linux-x86_64-cpu
+        -->
         <dependency>
             <groupId>org.apache.mxnet</groupId>
             <artifactId>mxnet-full_${mxnet.scalaprofile}-${mxnet.profile}</artifactId>
             <version>${mxnet.version}</version>
         </dependency>
-
-        <!--第三方插件-->
-        <!-- https://search.maven.org/artifact/org.bytedeco/javacv-platform/1.5/jar
-             https://mvnrepository.com/artifact/org.bytedeco/javacv-platform
-             https://github.com/bytedeco/javacv
-         -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.bytedeco</groupId>-->
-        <!--            <artifactId>javacv-platform</artifactId>-->
-        <!--            <version>1.5</version>-->
-        <!--        </dependency>-->
-
-        <!--Linux CPU
-        http://mxnet.incubator.apache.org/versions/master/install/java_setup.html
-        https://mvnrepository.com/artifact/org.apache.mxnet/mxnet-full_2.11-linux-x86_64-cpu
-        -->
 
         <!--spring-boot-config-->
         <dependency>

@@ -73,6 +73,7 @@
 
     <modules>
         <module>mxnet-spring-samples-image-recognition</module>
+        <module>mxnet-spring-samples-camera-detecte</module>
     </modules>
 
     <!--属性版本-->
