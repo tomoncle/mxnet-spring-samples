@@ -91,4 +91,10 @@ public class TestJavaCVTest {
         System.out.println(bufferedImage);
     }
 
+
+    @Test
+    public void testGPU(){
+        System.out.println(System.getenv().containsKey("SCALA_TEST_ON_GPU"));
+    }
+
 }

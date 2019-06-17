@@ -26,11 +26,11 @@
             </properties>
         </profile>
         <profile>
+            <!-- OS name: "linux", version: "4.15.0-51-generic", arch: "amd64", family: "unix" -->
             <id>linux-x86_64</id>
             <activation>
                 <os>
                     <family>unix</family>
-                    <name>Linux</name>
                 </os>
             </activation>
             <properties>

@@ -26,22 +26,20 @@ public class ImageFileDetection {
 
     // 如果识别准确率小于0.5则忽略
     private static final float IGNORE_PROBABILITY = 0.5f;
+    // 通过在上下文对象中指定inference，可以很容易地指定是要在CPU上还是GPU（如果您有支持GPU的计算机）上运行inference。
+    private static final List<Context> ctx = new ArrayList<>();
 
-    /**
-     * 通过在上下文对象中指定inference，可以很容易地指定是要在CPU上还是GPU（如果您有支持GPU的计算机）上运行inference。
-     *
-     * @return
-     */
-    private static List<Context> getContext() {
-        List<Context> ctx = new ArrayList<>();
+    static {
         if (System.getenv().containsKey("SCALA_TEST_ON_GPU") &&
                 Integer.valueOf(System.getenv("SCALA_TEST_ON_GPU")) == 1) {
             ctx.add(Context.gpu());
+            System.out.println("使用GPU");
         } else {
             ctx.add(Context.cpu());
+            System.out.println("使用CPU");
         }
-        return ctx;
     }
+
 
     private static String output(List<List<ObjectDetectorOutput>> output, Shape inputShape) {
         int width = inputShape.get(3);
@@ -77,7 +75,7 @@ public class ImageFileDetection {
 
 
     public static BufferedImage inputImage(BufferedImage img, String modelPathPrefix) {
-        List<Context> context = getContext();
+//        List<Context> context = getContext();
         // 1表示批量大小，在我们的例子中是单个图像。
         // 3用于图像中的通道，对于RGB图像为3
         // 512代表图像的高度和宽度
@@ -86,7 +84,7 @@ public class ImageFileDetection {
         // 布局指定给定的形状是基于NCHW的，NCHW是批大小、通道大小、高度和宽度
         // dtype是图像数据类型，它将是标准float32
         inputDescriptors.add(new DataDesc("data", inputShape, DType.Float32(), Layout.NCHW()));
-        ObjectDetector objDet = new ObjectDetector(modelPathPrefix, inputDescriptors, context, 0);
+        ObjectDetector objDet = new ObjectDetector(modelPathPrefix, inputDescriptors, ctx, 0);
         // topK=5表示获取识别率最高的5个对象
         final int topK = 5;
         List<List<ObjectDetectorOutput>> output = objDet.imageObjectDetect(img, topK);
@@ -97,8 +95,9 @@ public class ImageFileDetection {
 
     /**
      * 识别对象,并标注坐标,然后将识别后的文件信息写入BufferedImage对象
-     * @param buf read input image file
-     * @param imageDetectionJSONArray  mxnet识别的标注信息
+     *
+     * @param buf                     read input image file
+     * @param imageDetectionJSONArray mxnet识别的标注信息
      * @return
      * @throws IOException
      */
