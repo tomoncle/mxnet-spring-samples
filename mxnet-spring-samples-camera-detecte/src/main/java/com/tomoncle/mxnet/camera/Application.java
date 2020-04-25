@@ -12,7 +12,7 @@ public class Application {
     private static Logger logger = LoggerFactory.getLogger(Application.class);
 
     // model path prefix
-    private static final String modelPathPrefix = "/tmp/resnet50_ssd/resnet50_ssd_model";
+    private static final String modelPathPrefix = "/home/tomoncle/mxnet-models/resnet50_ssd/resnet50_ssd_model";
 
     private static Frame frameProcessor(Frame frame) {
         FrameConverter<BufferedImage> frameConverter = new Java2DFrameConverter();
@@ -38,7 +38,7 @@ public class Application {
             Frame frame = grabber.grab(); //这里的Frame frame=grabber.grab(); frame是一帧视频图像
             frame = frameProcessor(frame);
             canvas.showImage(frame);//获取摄像头图像并放到窗口上显示，
-            Thread.sleep(100); //50毫秒刷新一次图像
+            Thread.sleep(50); //50毫秒刷新一次图像
         }
     }
 
